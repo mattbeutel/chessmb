@@ -4,12 +4,11 @@
 
 #ifndef CHESS_H
 #define CHESS_H
+#include <SFML/Graphics.hpp>
 
 
 
-class chess {
-
-};
+void createChessBoard(sf::RenderWindow &board);
 
 
 
