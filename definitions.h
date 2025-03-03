@@ -29,4 +29,28 @@ enum {
 
 enum { FALSE, TRUE };
 
+typedef struct {
+    int pieces[BRD_SQ_NUM];
+    U64 pawns[3]; //bitboards for white, black, and all pawns
+
+    int KingSquare[2]; //keeps track of which squares the kings are on
+
+    /*
+        Basic game structure trackers
+    */
+    int sideToMove;
+    int enPassant;
+    int fiftyMoves;
+
+    int play;
+    int playHistory;
+
+    U64 positionKey;
+
+    int pieceNumber[13];
+    int bigPieces[3]; //non-pawns
+    int majorPieces[3]; //rooks, queens
+    int minorPieces[3]; //bishops, knights
+} BOARD_STRUCTURE;
+
 #endif //DEFINITIONS_H
