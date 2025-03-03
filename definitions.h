@@ -9,6 +9,8 @@ typedef unsigned long long U64;
 #define NAMEW "ChessMB"
 #define BRD_SQ_NUM 120
 
+#define MAXGAMEMOVES 2048 //Safe estimate for longest possible game
+
 enum { EMPTY, whitePAWN, whiteKNIGHT, whiteBISHOP, whiteROOK, whiteQUEEN, whiteKING, blackPAWN, blackKNIGHT, blackBISHOP, blackROOK, blackQUEEN, blackKING };
 enum { FILE_A, FILE_B, FILE_C, FILE_D, FILE_E, FILE_F, FILE_G, FILE_H, FILE_NONE };
 enum { RANK_1, RANK_2, RANK_3, RANK_4, RANK_5, RANK_6, RANK_7, RANK_8, RANK_NONE };
@@ -29,6 +31,16 @@ enum {
 
 enum { FALSE, TRUE };
 
+enum { WHITEKINGCASTLING = 1, WHITEQUEENCASTLING = 2, BLACKKINGCASTLING = 4, BLACKQUEENCASTLING = 8 }; //Bitwise representation for castling permission
+
+typedef struct {
+    int move;
+    int castlePermission;
+    int enPassant;
+    int fiftyMoves;
+    U64 positionKey;
+} UNDO;
+
 typedef struct {
     int pieces[BRD_SQ_NUM];
     U64 pawns[3]; //bitboards for white, black, and all pawns
@@ -36,7 +48,7 @@ typedef struct {
     int KingSquare[2]; //keeps track of which squares the kings are on
 
     /*
-        Basic game structure trackers
+        Basic game structure trackers. Draw conditions, special moves, etc.
     */
     int sideToMove;
     int enPassant;
@@ -45,12 +57,16 @@ typedef struct {
     int play;
     int playHistory;
 
+    int castlePermission;
+
     U64 positionKey;
 
     int pieceNumber[13];
     int bigPieces[3]; //non-pawns
     int majorPieces[3]; //rooks, queens
     int minorPieces[3]; //bishops, knights
+
+    UNDO history[MAXGAMEMOVES];
 } BOARD_STRUCTURE;
 
 #endif //DEFINITIONS_H
