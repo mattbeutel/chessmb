@@ -8,7 +8,7 @@
 typedef unsigned long long U64;
 #define NAMEW "ChessMB"
 #define BRD_SQ_NUM 120
-
+#define FR2SQ(f,r) ( ( 21 + (f) ) + ( (r) * 10) ) //f: file; r: rank; converting from file/rank to 120-base
 #define MAXGAMEMOVES 2048 //Safe estimate for longest possible game
 
 enum { EMPTY, whitePAWN, whiteKNIGHT, whiteBISHOP, whiteROOK, whiteQUEEN, whiteKING, blackPAWN, blackKNIGHT, blackBISHOP, blackROOK, blackQUEEN, blackKING };
@@ -68,5 +68,13 @@ typedef struct {
 
     UNDO history[MAXGAMEMOVES];
 } BOARD_STRUCTURE;
+
+
+
+//Converting back and forth between 120 base layout to 64 squares on an actual chessboard.
+extern int Sq120ToBoardSquare[BRD_SQ_NUM];
+extern int boardSquareToSq120[64];
+
+extern void allInit();
 
 #endif //DEFINITIONS_H

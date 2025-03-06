@@ -3,34 +3,27 @@
 //
 
 #include "chess.h"
+#include "definitions.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <optional>
 
 int main() {
-    std::cout << "Hello World!\n";
-    sf::RenderWindow board(sf::VideoMode({800, 800}), "ChessMB");
-    while (board.isOpen()) {
-        createChessBoard(board);
-        sf::Event event;
-        while (board.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                board.close();
-            }
+    allInit();
+
+    for(int index = 0; index < BRD_SQ_NUM; index++) {
+        if (index % 10 == 0) {
+            std::cout << std::endl;
         }
+        printf("%5d", Sq120ToBoardSquare[index]);
+    }
+    std::cout << std::endl << std::endl;
+    for(int index = 0; index < 64; index++) {
+        if (index % 8 == 0) {
+            std::cout << std::endl;
+        }
+        printf("%5d", boardSquareToSq120[index]);
     }
     return 0;
 }
 
-void createChessBoard(sf::RenderWindow &board) {
-    for (int file = 0; file < 8; file++) {
-        for (int rank = 0; rank < 8; rank++) {
-            bool isLightSquare = (file + rank) % 2 != 0;
-            sf::Color color = (isLightSquare) ? sf::Color::White : sf::Color::Cyan;
-            sf::Vector2f position(-3.5f + file, -3.5f + rank);
-            sf::RectangleShape tile(position);
-            tile.setFillColor(color);
-            board.draw(tile);
-        }
-    }
-}
