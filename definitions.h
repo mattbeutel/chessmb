@@ -5,6 +5,23 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
+#include "stdlib.h"
+
+#define DEBUG
+//For debugging purposes
+#ifndef DEBUG
+#define ASSERT(n)
+#else
+#define ASSERT(n) \
+if (!(n)) { \
+printf("%s - Failed", #n); \
+printf("On %s ", __DATE__); \
+printf("At %s ", __TIME__); \
+printf("In File %s ", __FILE__); \
+printf("At Line %d\n", __LINE__); \
+exit(1);}
+#endif
+
 typedef unsigned long long U64;
 #define NAMEW "ChessMB"
 #define BRD_SQ_NUM 120
@@ -67,6 +84,9 @@ typedef struct {
     int minorPieces[3]; //bishops, knights
 
     UNDO history[MAXGAMEMOVES];
+
+    //piece list, up to 10 of each piece for extreme case handling (i.e., converting all 8 pawns to rooks)
+    int pieceList[13][10];
 } BOARD_STRUCTURE;
 
 
