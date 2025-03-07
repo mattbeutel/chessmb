@@ -22,10 +22,11 @@ printf("At Line %d\n", __LINE__); \
 exit(1);}
 #endif
 
-typedef unsigned long long U64;
+typedef unsigned long long U64; //64-bit integers (mainly used for bitboards)
 #define NAMEW "ChessMB"
 #define BRD_SQ_NUM 120
-#define FR2SQ(f,r) ( ( 21 + (f) ) + ( (r) * 10) ) //f: file; r: rank; converting from file/rank to 120-base
+#define FR2SQ(f,r) ( ( 21 + (f) ) + ( (r) * 10) ) //f: file; r: rank; macro for converting from file/rank to 120-base
+#define SQ64(sq120) Sq120ToBoardSquare[sq120] //macro to shorten typing out the conversion method
 #define MAXGAMEMOVES 2048 //Safe estimate for longest possible game
 
 enum { EMPTY, whitePAWN, whiteKNIGHT, whiteBISHOP, whiteROOK, whiteQUEEN, whiteKING, blackPAWN, blackKNIGHT, blackBISHOP, blackROOK, blackQUEEN, blackKING };
@@ -60,7 +61,7 @@ typedef struct {
 
 typedef struct {
     int pieces[BRD_SQ_NUM];
-    U64 pawns[3]; //bitboards for white, black, and all pawns
+    U64 pawns[3]; //black, white, and all pawns on the board
 
     int KingSquare[2]; //keeps track of which squares the kings are on
 
@@ -96,5 +97,7 @@ extern int Sq120ToBoardSquare[BRD_SQ_NUM];
 extern int boardSquareToSq120[64];
 
 extern void allInit();
+
+extern void printBitboard(U64 bitboard);
 
 #endif //DEFINITIONS_H
