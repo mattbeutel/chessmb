@@ -27,6 +27,8 @@ typedef unsigned long long U64; //64-bit integers (mainly used for bitboards)
 #define BRD_SQ_NUM 120
 #define FR2SQ(f,r) ( ( 21 + (f) ) + ( (r) * 10) ) //f: file; r: rank; macro for converting from file/rank to 120-base
 #define SQ64(sq120) Sq120ToBoardSquare[sq120] //macro to shorten typing out the conversion method
+#define POP(b) popBit(b)
+#define CNT(b) countBits(b)
 #define MAXGAMEMOVES 2048 //Safe estimate for longest possible game
 
 enum { EMPTY, whitePAWN, whiteKNIGHT, whiteBISHOP, whiteROOK, whiteQUEEN, whiteKING, blackPAWN, blackKNIGHT, blackBISHOP, blackROOK, blackQUEEN, blackKING };
@@ -99,5 +101,6 @@ extern int boardSquareToSq120[64];
 extern void allInit();
 
 extern void printBitboard(U64 bitboard);
-
+extern int popBit(U64 *bitboard);
+extern int countBits(U64 bitboard);
 #endif //DEFINITIONS_H

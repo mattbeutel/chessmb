@@ -10,27 +10,22 @@
 
 int main() {
     allInit();
-    /*
-    for(int index = 0; index < BRD_SQ_NUM; index++) {
-        if (index % 10 == 0) {
-            std::cout << std::endl;
-        }
-        printf("%5d", Sq120ToBoardSquare[index]);
-    }
-    std::cout << std::endl << std::endl;
-    for(int index = 0; index < 64; index++) {
-        if (index % 8 == 0) {
-            std::cout << std::endl;
-        }
-        printf("%5d", boardSquareToSq120[index]);
-    }
-    */
+
     U64 playBitboard = 0ULL;
-    std::cout << "Start:\n\n";
-    printBitboard(playBitboard);
+
     playBitboard |= (1ULL << SQ64(D2));
-    std::cout << "D2 added:\n\n";
+    playBitboard |= (1ULL << SQ64(D3));
+    playBitboard |= (1ULL << SQ64(D4));
+
+    std::cout << std::endl;
     printBitboard(playBitboard);
+
+    int count = CNT(playBitboard);
+
+    std::cout << "Count: " << count << std::endl;
+
+    int index = POP(&playBitboard);
+
     return 0;
 }
 
