@@ -29,6 +29,8 @@ typedef unsigned long long U64; //64-bit integers (mainly used for bitboards)
 #define SQ64(sq120) Sq120ToBoardSquare[sq120] //macro to shorten typing out the conversion method
 #define POP(b) popBit(b)
 #define CNT(b) countBits(b)
+#define CLRBIT(bb,sq) ( (bb) &= clearMask[(sq)])
+#define SETBIT(bb,sq) ( (bb) |= setMask[(sq)])
 #define MAXGAMEMOVES 2048 //Safe estimate for longest possible game
 
 enum { EMPTY, whitePAWN, whiteKNIGHT, whiteBISHOP, whiteROOK, whiteQUEEN, whiteKING, blackPAWN, blackKNIGHT, blackBISHOP, blackROOK, blackQUEEN, blackKING };
@@ -97,6 +99,8 @@ typedef struct {
 //Converting back and forth between 120 base layout to 64 squares on an actual chessboard.
 extern int Sq120ToBoardSquare[BRD_SQ_NUM];
 extern int boardSquareToSq120[64];
+extern U64 setMask[64];
+extern U64 clearMask[64];
 
 extern void allInit();
 

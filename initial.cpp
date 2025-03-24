@@ -7,6 +7,20 @@
 int Sq120ToBoardSquare[BRD_SQ_NUM];
 int boardSquareToSq120[64];
 
+U64 setMask[64];
+U64 clearMask[64];
+
+void initializeBitMasks() {
+    for(int index = 0; index < 64; index++) {
+        setMask[index] = 0ULL;
+        clearMask[index] = 0ULL;
+    }
+    for(int index = 0; index < 64; index++) {
+        setMask[index] |= (1ULL << index);
+        clearMask[index] = ~setMask[index];
+    }
+}
+
 void initialize120toBoardSquare() {
     for (int i = 0; i < BRD_SQ_NUM; i++) {
         Sq120ToBoardSquare[i] = 65;
