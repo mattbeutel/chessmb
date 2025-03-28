@@ -101,10 +101,16 @@ extern int Sq120ToBoardSquare[BRD_SQ_NUM];
 extern int boardSquareToSq120[64];
 extern U64 setMask[64];
 extern U64 clearMask[64];
+extern U64 pieceKeys[13][120];
+extern U64 sideKey;
+extern U64 castleKeys[16];
+
 
 extern void allInit();
 
 extern void printBitboard(U64 bitboard);
 extern int popBit(U64 *bitboard);
 extern int countBits(U64 bitboard);
+
+extern U64 generatePositionKey(const BOARD_STRUCTURE *pos);
 #endif //DEFINITIONS_H
